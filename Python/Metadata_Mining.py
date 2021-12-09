@@ -16,11 +16,13 @@ for repo_url in urls:
     
     #for each commit in this repo
     for commit in repo.traverse_commits():
-        #TODO: modify from print to story in a DF which can be converted to .csv
+        #TODO: modify from print to story in a DF which can be converted to .csv outside of the loop
         #TODO: decide which metadata we want; currently just hash, msg and files changed for each commit
-        print(commit.hash)
-        print(commit.msg)
-
+        print("commit hash:",commit.hash)
+        print("commit message:",commit.msg)
+		print("commit size (lines changed):",commit.lines)
+		print("commit size (files changed):",commit.files)
+		
         #print each file modified by this commit 
         for file in commit.modified_files:
           print(file.filename, ' has changed')
