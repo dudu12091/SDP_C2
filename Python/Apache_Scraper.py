@@ -26,9 +26,11 @@ def get_data(base_url):
                 link_url = re.findall(link, item)[0]
                 repo_name = link_url[8:]
                 link_url = "https://github.com"+link_url+".git"
+                stars_count = getStars(html)
                 print(link_url)
                 print(repo_name)
-                data_list.append([repo_name, link_url])
+                print(stars_count)
+                data_list.append([repo_name, link_url, stars_count])
     print(len(data_list))
     return data_list
 
@@ -55,15 +57,20 @@ def save_data(data_list, save_path):
     print("save.....")
     book = xlwt.Workbook(encoding="utf-8", style_compression=0)
     sheet = book.add_sheet('ApacheJavaRepository', cell_overwrite_ok=True)
-    col = ("Name", "Repository")
-    for i in range(0, 2):
+    col = ("Name", "Repository", "Stars")
+    for i in range(0, 3):
         sheet.write(0, i, col[i])
     for i in range(len(data_list)):
         data = data_list[i]
-        for j in range(0, 2):
+        for j in range(0, 3):
             sheet.write(i+1, j, data[j])
     book.save(save_path)
 
+def getStars(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    repo = soup.find(class_="repo-list")
+    stars = stars = repo.find(class_='octicon octicon-star').parent.text.strip()
+    return stars
 
 if __name__ == '__main__':
     base_url = 'https://github.com/orgs/apache/repositories?language=java&page='
