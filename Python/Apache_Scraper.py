@@ -1,9 +1,11 @@
 import urllib.error
 import urllib.request
 import re
-from bs4 import BeautifulSoup
+from bs4 import *
+from requests.models import Response
 import xlwt
 import ssl
+import requests
 
 
 context = ssl._create_unverified_context()
@@ -26,10 +28,12 @@ def get_data(base_url):
                 link_url = re.findall(link, item)[0]
                 repo_name = link_url[8:]
                 link_url = "https://github.com"+link_url+".git"
-                print(link_url)
+                stars_count = getStars(link_url)
+                #print(link_url)
                 print(repo_name)
-                data_list.append([repo_name, link_url])
-    print(len(data_list))
+                print(stars_count)
+                data_list.append([repo_name, link_url, stars_count])
+    #print(len(data_list))
     return data_list
 
 
@@ -55,15 +59,21 @@ def save_data(data_list, save_path):
     print("save.....")
     book = xlwt.Workbook(encoding="utf-8", style_compression=0)
     sheet = book.add_sheet('ApacheJavaRepository', cell_overwrite_ok=True)
-    col = ("Name", "Repository")
-    for i in range(0, 2):
+    col = ("Name", "Repository", "Stars")
+    for i in range(0, 3):
         sheet.write(0, i, col[i])
     for i in range(len(data_list)):
         data = data_list[i]
-        for j in range(0, 2):
+        for j in range(0, 3):
             sheet.write(i+1, j, data[j])
     book.save(save_path)
 
+def getStars(url):
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'lxml')
+    stars_class = "social-count js-social-count"
+    stars = soup.find('a', class_=stars_class).text.strip()
+    return stars
 
 if __name__ == '__main__':
     base_url = 'https://github.com/orgs/apache/repositories?language=java&page='
