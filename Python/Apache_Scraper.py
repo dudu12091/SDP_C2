@@ -1,9 +1,11 @@
 import urllib.error
 import urllib.request
 import re
-from bs4 import BeautifulSoup
+from bs4 import *
+from requests.models import Response
 import xlwt
 import ssl
+import requests
 
 
 context = ssl._create_unverified_context()
@@ -26,12 +28,12 @@ def get_data(base_url):
                 link_url = re.findall(link, item)[0]
                 repo_name = link_url[8:]
                 link_url = "https://github.com"+link_url+".git"
-                stars_count = getStars(html)
-                print(link_url)
+                stars_count = getStars(link_url)
+                #print(link_url)
                 print(repo_name)
                 print(stars_count)
                 data_list.append([repo_name, link_url, stars_count])
-    print(len(data_list))
+    #print(len(data_list))
     return data_list
 
 
@@ -66,10 +68,11 @@ def save_data(data_list, save_path):
             sheet.write(i+1, j, data[j])
     book.save(save_path)
 
-def getStars(html):
-    soup = BeautifulSoup(html, 'html.parser')
-    repo = soup.find(class_="repo-list")
-    stars = stars = repo.find(class_='octicon octicon-star').parent.text.strip()
+def getStars(url):
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'lxml')
+    stars_class = "social-count js-social-count"
+    stars = soup.find('a', class_=stars_class).text.strip()
     return stars
 
 if __name__ == '__main__':
