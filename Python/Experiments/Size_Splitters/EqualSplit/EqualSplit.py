@@ -57,9 +57,11 @@ for i in range(stepSize,len(df_allRepos),stepSize):
 df_allRepos["Size_Classification"][j:]=classifier_number
 
 
+#saving all repos with their new size classifications
+df_allRepos.to_csv("./EqualSizeSplit_All.csv", index=False, header=True)
 
 
-# visualisations and useful figures
+# visualisations and useful figures for the different sizes
 
 #Is there a better way of doing a box plot?
 pivot_allRepos = df_allRepos.pivot_table(index="Stars", columns='Size_Classification', values='LOC')
@@ -68,3 +70,31 @@ pivot_allRepos.plot(kind='box', figsize=[16,8])
 #add histogram here
 
 #add any other useful ones
+
+
+
+
+
+
+
+
+#getting best/worst rated for each size
+df_bestWorstRepos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification","Best_or_worst"])
+
+n_best = 10
+n_worst = 10 
+gb_allRepos = df_allRepos.groupby("Size_Classification")
+for group_name, df_sizeGroup in gb_allRepos:
+    df_sizeGroup=df_sizeGroup.sort_values(by="Stars")
+    
+    df_nWorst = df_sizeGroup.head(n_worst)
+    df_nWorst["Best_or_worst"]="worst"
+    df_nBest = df_sizeGroup.tail(n_best)
+    df_nBest["Best_or_worst"]="best"
+    
+    df_bestWorstRepos=df_bestWorstRepos.append(df_nWorst)
+    df_bestWorstRepos=df_bestWorstRepos.append(df_nBest)
+
+df_bestWorstRepos.to_csv("./EqualSizeSplit_BestAndWorst.csv", index=False, header=True)
+    
+
