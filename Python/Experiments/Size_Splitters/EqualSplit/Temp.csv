@@ -481,7 +481,7 @@ sling-org-apache-sling-jcr-packageinit,https://github.com/apache/sling-org-apach
 sling-org-apache-sling-launchpad-test-fragment,https://github.com/apache/sling-org-apache-sling-launchpad-test-fragment.git,1,383
 sling-org-apache-sling-commons-classloader,https://github.com/apache/sling-org-apache-sling-commons-classloader.git,3,2.3*1000
 sling-org-apache-sling-scripting-groovy,https://github.com/apache/sling-org-apache-sling-scripting-groovy.git,1,1.4*1000
-sling-org-apache-sling-installer-console,https://github.com/apache/sling-org-apache-sling-installer-console.git,1,1.1*1000l
+sling-org-apache-sling-installer-console,https://github.com/apache/sling-org-apache-sling-installer-console.git,1,1.1*1000
 sling-org-apache-sling-adapter-annotations,https://github.com/apache/sling-org-apache-sling-adapter-annotations.git,2,1.1*1000
 sling-org-apache-sling-jcr-oak-server,https://github.com/apache/sling-org-apache-sling-jcr-oak-server.git,2,2.7*1000
 sling-org-apache-sling-resource-presence,https://github.com/apache/sling-org-apache-sling-resource-presence.git,1,917

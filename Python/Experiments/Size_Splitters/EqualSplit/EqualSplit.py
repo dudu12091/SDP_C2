@@ -49,14 +49,12 @@ classifier_number = 0 #classification for sizes
 stepSize = round(len(df_allRepos)/n) # splitting into n equally sized splits
 
 #iteratively assign size classifications to equally sized sets based on the specified n splits
-for i in range(0,len(df_allRepos),stepSize):
+for i in range(stepSize,len(df_allRepos),stepSize):
     df_allRepos["Size_Classification"][j:i]=classifier_number
     classifier_number+=1
     j=i
 #for the final step go from the start to the very end
 df_allRepos["Size_Classification"][j:]=classifier_number
-
-
 
 
 
