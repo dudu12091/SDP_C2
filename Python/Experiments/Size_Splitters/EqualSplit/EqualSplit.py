@@ -79,22 +79,22 @@ pivot_allRepos.plot(kind='box', figsize=[16,8])
 
 
 #getting best/worst rated for each size
-df_bestWorstRepos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification","Best_or_worst"])
+df_bestRepos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification","Best_or_worst"])
 
 n_best = 10
-n_worst = 10 
+#n_worst = 10 
 gb_allRepos = df_allRepos.groupby("Size_Classification")
 for group_name, df_sizeGroup in gb_allRepos:
     df_sizeGroup=df_sizeGroup.sort_values(by="Stars")
     
-    df_nWorst = df_sizeGroup.head(n_worst)
-    df_nWorst["Best_or_worst"]="worst"
+    #df_nWorst = df_sizeGroup.head(n_worst)
+    #df_nWorst["Best_or_worst"]="worst"
     df_nBest = df_sizeGroup.tail(n_best)
     df_nBest["Best_or_worst"]="best"
     
-    df_bestWorstRepos=df_bestWorstRepos.append(df_nWorst)
-    df_bestWorstRepos=df_bestWorstRepos.append(df_nBest)
+    #df_bestRepos=df_bestRepos.append(df_nWorst)
+    df_bestRepos=df_bestRepos.append(df_nBest)
 
-df_bestWorstRepos.to_csv("./EqualSizeSplit_BestAndWorst.csv", index=False, header=True)
+df_bestRepos.to_csv("./EqualSizeSplit_Best.csv", index=False, header=True)
     
 
