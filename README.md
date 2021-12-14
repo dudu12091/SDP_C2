@@ -1,5 +1,7 @@
 # SDP_CW2
 
-* Goals by Monday:
- 1. Be able to use PyDriller to scrape the Apache Repositories
- 2. Be able to classify the repositories as TDD or not based on them exceeding some threshold of test commits that occur before or with implementation commits
+* Research Questions:
+ 1. Inspect likelihood for a project to be TDD over all projects?
+ 2. Inspect likelihood for each size of project to be TDD?
+ 3. Inspect developers preference for TDD vs non-TDD projects over all repos
+ 4. Inspect developers preference for TDD vs non-TDD projects for each sized project
