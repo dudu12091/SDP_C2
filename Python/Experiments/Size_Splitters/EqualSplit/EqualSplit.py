@@ -37,9 +37,6 @@ for i in range(99,len(df_allRepos),1):
 #sorting in size order
 df_allRepos = df_allRepos.sort_values(by=["LOC"])
 
-
-
-
 #classifying all rows into sizes
 df_allRepos["Size_Classification"]=np.NaN
 
@@ -60,21 +57,62 @@ df_allRepos["Size_Classification"][j:]=classifier_number
 #saving all repos with their new size classifications
 df_allRepos.to_csv("./EqualSizeSplit_All.csv", index=False, header=True)
 
+# Visualisations and useful figures for the different sizes
 
-# visualisations and useful figures for the different sizes
+# Box Plot representing 1: Small, 2: Medium, 3: Large and the averages of stars
+small_loc = df_allRepos.loc[df_allRepos['Size_Classification'] == 0.0]
+medium_loc = df_allRepos.loc[df_allRepos['Size_Classification'] == 1.0]
+large_loc = df_allRepos.loc[df_allRepos['Size_Classification'] == 2.0]
+data = [small_loc['LOC'], medium_loc['LOC'], large_loc['LOC']]
 
-#Is there a better way of doing a box plot?
-pivot_allRepos = df_allRepos.pivot_table(index="Stars", columns='Size_Classification', values='LOC')
-pivot_allRepos.plot(kind='box', figsize=[16,8])
+fig = plt.figure(figsize=(10,7))
+ax = fig.add_subplot(111)
+ax.set_title('Boxplot showing LOC distribution between Small, Medium and Large Repositories')
+ax.set_xlabel('Type of Repository')
+ax.set_ylabel('LOC')
+ax.set_xticklabels(['Small', 'Medium', 'Large'])
+ax.get_yaxis().get_major_formatter().set_scientific(False)
+bp = ax.boxplot(data)
 
-#add histogram here
+# Box Plot showing the distribution of stars
+star_data = df_allRepos['Stars']
+fig_4 = plt.figure(figsize=(10,7))
+ax_4 = fig_4.add_subplot(111)
+ax_4.set_title('Boxplot showing Stars given to Repositories')
+ax_4.set_ylabel('Stars')
+star_bp = ax_4.boxplot(star_data)
 
-#add any other useful ones
+plt.figtext(0.5, 0.01, f"Mean: {star_data.mean()}, Median: {star_data.median()}, Min: {star_data.min()}, Max: {star_data.max()}", ha="center", va="center", fontsize=8)
 
+# Histogram for LOC distribution
 
+fig_2 = plt.figure(figsize=(10,7))
+ax_2 = fig_2.add_subplot(111)
+ax_2.set_title('Histogram showing LOC')
+ax_2.set_xlabel('LOC')
+ax_2.set_ylabel('Frequency')
+ax_2.get_xaxis().get_major_formatter().set_scientific(False)
+hist_loc = ax_2.hist(df_allRepos['LOC'])
 
+plt.figtext(0.5, 0.01, f"Mean: {df_allRepos['LOC'].mean()}, Median: {df_allRepos['LOC'].median()}, Min: {df_allRepos['LOC'].min()}, Max: {df_allRepos['LOC'].max()}, Mode: {df_allRepos['LOC'].mode()}", ha="center", va="center", fontsize=8)
 
+# Histogram for Stars distribution
 
+fig_3 = plt.figure(figsize=(10,7))
+ax_3 = fig_3.add_subplot(111)
+ax_3.set_title('Histogram showing Stars')
+ax_3.set_xlabel('Stars')
+ax_3.set_ylabel('Frequency')
+ax_3.get_xaxis().get_major_formatter().set_scientific(False)
+hist_loc = ax_3.hist(df_allRepos['Stars'])
+
+plt.figtext(0.5, 0.01, f"Mean: {df_allRepos['Stars'].mean()}, Median: {df_allRepos['Stars'].median()}, Min: {df_allRepos['Stars'].min()}, Max: {df_allRepos['Stars'].max()}, Mode: {df_allRepos['Stars'].mode()}", ha="center", va="center", fontsize=8)
+
+plt.show()
+
+# add any other useful ones
+
+# Line graph showing if there is a correlation between number of stars and repository size
 
 
 
