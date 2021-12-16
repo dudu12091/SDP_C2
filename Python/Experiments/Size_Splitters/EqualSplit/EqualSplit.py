@@ -41,7 +41,7 @@ df_allRepos = df_allRepos.sort_values(by=["LOC"])
 df_allRepos["Size_Classification"]=np.NaN
 
 j=0 #start of class (i is end of class)
-n=3 #number of splits
+n=6 #number of splits
 classifier_number = 0 #classification for sizes
 stepSize = round(len(df_allRepos["LOC"])/n) # splitting into n equally sized splits
 
@@ -67,12 +67,10 @@ size_classes = df_allRepos["Size_Classification"].unique()
 data = []
 for key in df_allRepos["Size_Classification"].unique():
     data+=[df_allRepos.loc[df_allRepos['Size_Classification'] == key]["LOC"]]
-print(size_classes)
-
 
 fig = plt.figure(figsize=(10,7))
 ax = fig.add_subplot(111)
-ax.set_title('Boxplot showing LOC distribution between Small, Medium and Large Repositories')
+ax.set_title('Boxplot showing LOC distribution between different sized repos')
 ax.set_xlabel('Type of Repository')
 ax.set_xticklabels(size_classes)
 ax.set_ylabel('LOC')
@@ -80,14 +78,18 @@ ax.get_yaxis().get_major_formatter().set_scientific(False)
 bp = ax.boxplot(data)
 
 # Box Plot showing the distribution of stars
-star_data = df_allRepos['Stars']
+size_classes = df_allRepos["Size_Classification"].unique()
+star_data = []
+for key in df_allRepos["Size_Classification"].unique():
+    star_data+=[df_allRepos.loc[df_allRepos['Size_Classification'] == key]["Stars"]]
+
 fig_4 = plt.figure(figsize=(10,7))
 ax_4 = fig_4.add_subplot(111)
-ax_4.set_title('Boxplot showing Stars given to Repositories')
+ax_4.set_title('Boxplot showing Stars given to diifferent sized repos')
 ax_4.set_ylabel('Stars')
 star_bp = ax_4.boxplot(star_data)
 
-plt.figtext(0.5, 0.01, f"Mean: {star_data.mean()}, Median: {star_data.median()}, Min: {star_data.min()}, Max: {star_data.max()}", ha="center", va="center", fontsize=8)
+#plt.figtext(0.5, 0.01, f"Mean: {star_data.mean()}, Median: {star_data.median()}, Min: {star_data.min()}, Max: {star_data.max()}", ha="center", va="center", fontsize=8)
 
 # Histogram for LOC distribution
 
