@@ -41,13 +41,12 @@ df_allRepos = df_allRepos.sort_values(by=["LOC"])
 df_allRepos["Size_Classification"]=np.NaN
 
 j=0 #start of class (i is end of class)
-n=6 #number of splits
+n=3 #number of splits
 classifier_number = 0 #classification for sizes
 stepSize = round(len(df_allRepos["LOC"])/n) # splitting into n equally sized splits
 
 #iteratively assign size classifications to equally sized sets based on the specified n splits
 for i in range(stepSize,len(df_allRepos),stepSize):
-    print(j,i)
     df_allRepos["Size_Classification"][j:i]=classifier_number
     if(len(df_allRepos)-i>1):
         classifier_number+=1
@@ -62,7 +61,7 @@ df_allRepos.to_csv("./EqualSizeSplit_All.csv", index=False, header=True)
 
 # Visualisations and useful figures for the different sizes
 
-# Box Plot representing the different size classifications (generic as we want to experiment with different numbers of classes)
+# Box Plot representing the LOC for different size classifications (generic as we want to experiment with different numbers of classes)
 size_classes = df_allRepos["Size_Classification"].unique()
 data = []
 for key in df_allRepos["Size_Classification"].unique():
@@ -77,6 +76,11 @@ ax.set_ylabel('LOC')
 ax.get_yaxis().get_major_formatter().set_scientific(False)
 bp = ax.boxplot(data)
 
+
+
+
+
+
 # Box Plot showing the distribution of stars
 size_classes = df_allRepos["Size_Classification"].unique()
 star_data = []
@@ -88,6 +92,33 @@ ax_4 = fig_4.add_subplot(111)
 ax_4.set_title('Boxplot showing Stars given to diifferent sized repos')
 ax_4.set_ylabel('Stars')
 star_bp = ax_4.boxplot(star_data)
+
+
+
+
+# Bar Chart representing the distribution of size classifications
+size_classes = df_allRepos["Size_Classification"].unique()
+distribution_data = []
+for key in df_allRepos["Size_Classification"].unique():
+    distribution_data+=[len(df_allRepos.loc[df_allRepos['Size_Classification'] == key]["LOC"])]
+    
+
+print(distribution_data)
+
+fig = plt.figure(figsize=(10,7))
+ax = fig.add_subplot(111)
+ax.set_title('Barchart showing distribution between different size classifications')
+ax.set_xlabel('Size classification of Repository')
+ax.set_ylabel('Number of repositories classified as this')
+ax.get_yaxis().get_major_formatter().set_scientific(False)
+
+x_pos = [i for i, _ in enumerate(size_classes)]
+bp = ax.bar(x_pos, distribution_data)
+plt.xticks(x_pos,size_classes)
+
+
+
+
 
 #plt.figtext(0.5, 0.01, f"Mean: {star_data.mean()}, Median: {star_data.median()}, Min: {star_data.min()}, Max: {star_data.max()}", ha="center", va="center", fontsize=8)
 
