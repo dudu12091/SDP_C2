@@ -43,15 +43,18 @@ df_allRepos["Size_Classification"]=np.NaN
 j=0 #start of class (i is end of class)
 n=3 #number of splits
 classifier_number = 0 #classification for sizes
-stepSize = round(len(df_allRepos)/n) # splitting into n equally sized splits
+stepSize = round(len(df_allRepos["LOC"])/n) # splitting into n equally sized splits
 
 #iteratively assign size classifications to equally sized sets based on the specified n splits
 for i in range(stepSize,len(df_allRepos),stepSize):
+    print(j,i)
     df_allRepos["Size_Classification"][j:i]=classifier_number
-    classifier_number+=1
+    if(len(df_allRepos)-i>1):
+        classifier_number+=1
     j=i
 #for the final step go from the start to the very end
 df_allRepos["Size_Classification"][j:]=classifier_number
+
 
 
 #saving all repos with their new size classifications
