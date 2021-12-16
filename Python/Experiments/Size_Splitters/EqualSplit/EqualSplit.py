@@ -10,6 +10,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 pd.options.mode.chained_assignment = None  # default='warn'
 
+reject_outliers=True # are we using outliers in this?
+
 # loading the spreadsheet containing all project sizes
 df_allRepos = pd.read_excel('../ApacheReposInfo2.xlsx')
 
@@ -37,11 +39,17 @@ for i in range(99,len(df_allRepos),1):
 #sorting in size order
 df_allRepos = df_allRepos.sort_values(by=["LOC"])
 
+#outliers are messing with results: getting rid of repos which are much higher than others
+if(reject_outliers):
+    df_mask=df_allRepos['LOC']<=2000000
+    df_allRepos = df_allRepos[df_mask]
+
+
 #classifying all rows into sizes
 df_allRepos["Size_Classification"]=np.NaN
 
 j=0 #start of class (i is end of class)
-n=3 #number of splits
+n=4 #number of splits
 classifier_number = 0 #classification for sizes
 stepSize = round(len(df_allRepos["LOC"])/n) # splitting into n equally sized splits
 
@@ -103,7 +111,6 @@ for key in df_allRepos["Size_Classification"].unique():
     distribution_data+=[len(df_allRepos.loc[df_allRepos['Size_Classification'] == key]["LOC"])]
     
 
-print(distribution_data)
 
 fig = plt.figure(figsize=(10,7))
 ax = fig.add_subplot(111)
@@ -118,39 +125,6 @@ plt.xticks(x_pos,size_classes)
 
 
 
-
-
-#plt.figtext(0.5, 0.01, f"Mean: {star_data.mean()}, Median: {star_data.median()}, Min: {star_data.min()}, Max: {star_data.max()}", ha="center", va="center", fontsize=8)
-
-# Histogram for LOC distribution
-
-fig_2 = plt.figure(figsize=(10,7))
-ax_2 = fig_2.add_subplot(111)
-ax_2.set_title('Histogram showing LOC')
-ax_2.set_xlabel('LOC')
-ax_2.set_ylabel('Frequency')
-ax_2.get_xaxis().get_major_formatter().set_scientific(False)
-hist_loc = ax_2.hist(df_allRepos['LOC'])
-
-plt.figtext(0.5, 0.01, f"Mean: {df_allRepos['LOC'].mean()}, Median: {df_allRepos['LOC'].median()}, Min: {df_allRepos['LOC'].min()}, Max: {df_allRepos['LOC'].max()}, Mode: {df_allRepos['LOC'].mode()}", ha="center", va="center", fontsize=8)
-
-# Histogram for Stars distribution
-
-fig_3 = plt.figure(figsize=(10,7))
-ax_3 = fig_3.add_subplot(111)
-ax_3.set_title('Histogram showing Stars')
-ax_3.set_xlabel('Stars')
-ax_3.set_ylabel('Frequency')
-ax_3.get_xaxis().get_major_formatter().set_scientific(False)
-hist_loc = ax_3.hist(df_allRepos['Stars'])
-
-plt.figtext(0.5, 0.01, f"Mean: {df_allRepos['Stars'].mean()}, Median: {df_allRepos['Stars'].median()}, Min: {df_allRepos['Stars'].min()}, Max: {df_allRepos['Stars'].max()}, Mode: {df_allRepos['Stars'].mode()}", ha="center", va="center", fontsize=8)
-
-plt.show()
-
-# add any other useful ones
-
-# Line graph showing if there is a correlation between number of stars and repository size
 
 
 
