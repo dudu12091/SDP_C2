@@ -59,18 +59,20 @@ df_allRepos.to_csv("./EqualSizeSplit_All.csv", index=False, header=True)
 
 # Visualisations and useful figures for the different sizes
 
-# Box Plot representing 1: Small, 2: Medium, 3: Large and the averages of stars
-small_loc = df_allRepos.loc[df_allRepos['Size_Classification'] == 0.0]
-medium_loc = df_allRepos.loc[df_allRepos['Size_Classification'] == 1.0]
-large_loc = df_allRepos.loc[df_allRepos['Size_Classification'] == 2.0]
-data = [small_loc['LOC'], medium_loc['LOC'], large_loc['LOC']]
+# Box Plot representing the different size classifications (generic as we want to experiment with different numbers of classes)
+size_classes = df_allRepos["Size_Classification"].unique()
+data = []
+for key in df_allRepos["Size_Classification"].unique():
+    data+=[df_allRepos.loc[df_allRepos['Size_Classification'] == key]["LOC"]]
+print(size_classes)
+
 
 fig = plt.figure(figsize=(10,7))
 ax = fig.add_subplot(111)
 ax.set_title('Boxplot showing LOC distribution between Small, Medium and Large Repositories')
 ax.set_xlabel('Type of Repository')
+ax.set_xticklabels(size_classes)
 ax.set_ylabel('LOC')
-ax.set_xticklabels(['Small', 'Medium', 'Large'])
 ax.get_yaxis().get_major_formatter().set_scientific(False)
 bp = ax.boxplot(data)
 
