@@ -66,7 +66,7 @@ import scipy.cluster.hierarchy as shc
 plt.figure(figsize=(10,7))
 plt.title("Stars Dendrogram")
 dend = shc.dendrogram(shc.linkage(df_stars_scaled, method="ward"))
-plt.axhline(y=5, color='r', linestyle='--')
+plt.axhline(y=4, color='r', linestyle='--')
 
 from sklearn.cluster import AgglomerativeClustering
 cluster = AgglomerativeClustering(n_clusters=2, affinity='euclidean', linkage='ward')
@@ -128,10 +128,10 @@ import scipy.cluster.hierarchy as shc
 plt.figure(figsize=(10,7))
 plt.title("LOC Dendrogram")
 dend = shc.dendrogram(shc.linkage(df_loc_scaled, method="ward"))
-plt.axhline(y=0.2, color='r', linestyle='--')
+plt.axhline(y=0.4, color='r', linestyle='--')
 
 from sklearn.cluster import AgglomerativeClustering
-cluster = AgglomerativeClustering(n_clusters=6, affinity='euclidean', linkage='ward')
+cluster = AgglomerativeClustering(n_clusters=2, affinity='euclidean', linkage='ward')
 segmentation = cluster.fit_predict(df_loc_scaled)
 
 # Apply the split and save to Excel
@@ -163,7 +163,7 @@ for key in df_allRepos["LOC_Group"].unique():
     
 fig_3 = plt.figure(figsize=(10,7))
 ax_3 = fig_3.add_subplot(111)
-ax_3.set_title('lOC - Barchart showing distribution between different size classifications.')
+ax_3.set_title('LOC - Barchart showing distribution between different size classifications.')
 ax_3.set_xlabel('Size classification of Repository')
 ax_3.set_ylabel('Number of repositories classified as this')
 ax_3.get_yaxis().get_major_formatter().set_scientific(False)
