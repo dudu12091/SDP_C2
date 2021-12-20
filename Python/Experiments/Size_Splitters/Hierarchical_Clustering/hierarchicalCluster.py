@@ -27,7 +27,7 @@ df_allRepos["LOC"] = df_allRepos["LOC"].replace({r'[kK ]': '*1000', r'[mM ]': '*
 df_allRepos["Stars"] = df_allRepos["Stars"].replace({r'[kK ]': '*1000', r'[mM ]': '*1000000'}, regex=True).map(pd.eval).astype(int)
 
 #sorting in size order
-df_allRepos = df_allRepos.sort_values(by=["LOC"])
+df_allRepos = df_allRepos.sort_values(by=["LOC"]).reset_index()
 
 #outliers are messing with results: getting rid of repos which are much higher than others
 if(reject_outliers):
@@ -46,7 +46,7 @@ Stars Split
 
 """
 
-# Create Dataframe for Stars
+# Create Dataframe for Starstried 
 df_stars = df_allRepos[['ID','Stars']]
 
 # normalise values for loc because some are very large

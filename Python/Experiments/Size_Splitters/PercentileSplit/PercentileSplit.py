@@ -50,22 +50,25 @@ df_allRepos["Size_Classification"]=np.NaN
 
 j=0 #start of class (i is end of class)
 n=3 #number of splits
+
+
+#getting the percentile values we need for n splits for the LOC
+percentile_step = 1/n
+percentiles = [round(this_percentile_step/1000,2) for this_percentile_step in range(int(percentile_step*1000),1000, int(percentile_step*1000))]
+print("percentiles", percentiles)
+percentiles_values = [df_allRepos["LOC"].quantile(this_percentile_step, "linear") for this_percentile_step in percentiles]
+percentiles_values.append(max(df_allRepos["LOC"]))
+print("percentiles_values",percentiles_values)
+
 classifier_number = 0 #classification for sizes
-stepSize = round(len(df_allRepos["LOC"])/n) # splitting into n equally sized splits
-
-#iteratively assign size classifications to equally sized sets based on the specified n splits
-for i in range(stepSize,len(df_allRepos),stepSize):
-    df_allRepos["Size_Classification"][j:i]=classifier_number
-    if(len(df_allRepos)-i>1):
+#iteratively assign size classifications by checking which percentile each belongs to
+for i in range(len(df_allRepos)):
+    df_allRepos["Size_Classification"][i]=classifier_number
+    if(df_allRepos.iloc[i]["LOC"]>percentiles_values[classifier_number]):
         classifier_number+=1
-    j=i
-#for the final step go from the start to the very end
-df_allRepos["Size_Classification"][j:]=classifier_number
 
 
 
-#saving all repos with their new size classifications
-df_allRepos.to_csv("./EqualSizeSplit_All.csv", index=False, header=True)
 
 # Visualisations and useful figures for the different sizes
 
@@ -126,7 +129,8 @@ plt.xticks(x_pos,size_classes)
 
 
 
-
+#saving all repos with their new size classifications
+df_allRepos.to_csv("./PercentileSplit_All.csv", index=False, header=True)
 
 #getting best/worst rated for each size
 df_bestRepos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification","Best_or_worst"])
@@ -145,6 +149,6 @@ for group_name, df_sizeGroup in gb_allRepos:
     #df_bestRepos=df_bestRepos.append(df_nWorst)
     df_bestRepos=df_bestRepos.append(df_nBest)
 
-df_bestRepos.to_csv("./EqualSizeSplit_Best.csv", index=False, header=True)
+df_bestRepos.to_csv("./PercentileSplit_Best.csv", index=False, header=True)
     
 

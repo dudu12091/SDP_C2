@@ -273,8 +273,8 @@ index,Name,Repository,Stars,LOC,Size_Classification
 351,sling-maven-plugin,https://github.com/apache/sling-maven-plugin.git,4,5300,0.0
 752,maven-repository-plugin,https://github.com/apache/maven-repository-plugin.git,1,5300,0.0
 373,sling-org-apache-sling-auth-saml2,https://github.com/apache/sling-org-apache-sling-auth-saml2.git,3,5400,0.0
-644,accumulo-classloaders,https://github.com/apache/accumulo-classloaders.git,2,5500,0.0
-195,sling-org-apache-sling-testing-jcr-mock,https://github.com/apache/sling-org-apache-sling-testing-jcr-mock.git,1,5500,0.0
+644,accumulo-classloaders,https://github.com/apache/accumulo-classloaders.git,2,5500,1.0
+195,sling-org-apache-sling-testing-jcr-mock,https://github.com/apache/sling-org-apache-sling-testing-jcr-mock.git,1,5500,1.0
 321,sling-org-apache-sling-repoinit-parser,https://github.com/apache/sling-org-apache-sling-repoinit-parser.git,4,5500,1.0
 489,sling-org-apache-sling-jcr-js-nodetypes,https://github.com/apache/sling-org-apache-sling-jcr-js-nodetypes.git,1,5600,1.0
 343,sling-org-apache-sling-discovery-oak,https://github.com/apache/sling-org-apache-sling-discovery-oak.git,1,5600,1.0
@@ -551,10 +551,10 @@ index,Name,Repository,Stars,LOC,Size_Classification
 753,cordova-amazon-fireos,https://github.com/apache/cordova-amazon-fireos.git,20,58800,1.0
 397,datasketches-characterization,https://github.com/apache/datasketches-characterization.git,9,59000,1.0
 706,incubator-samoa,https://github.com/apache/incubator-samoa.git,238,60900,1.0
-698,incubator-taverna-server,https://github.com/apache/incubator-taverna-server.git,4,62000,2.0
-676,geronimo-gshell,https://github.com/apache/geronimo-gshell.git,2,64099,2.0
-727,incubator-batchee,https://github.com/apache/incubator-batchee.git,13,65300,2.0
-221,commons-net,https://github.com/apache/commons-net.git,163,65500,2.0
+698,incubator-taverna-server,https://github.com/apache/incubator-taverna-server.git,4,62000,1.0
+676,geronimo-gshell,https://github.com/apache/geronimo-gshell.git,2,64099,1.0
+727,incubator-batchee,https://github.com/apache/incubator-batchee.git,13,65300,1.0
+221,commons-net,https://github.com/apache/commons-net.git,163,65500,1.0
 814,karaf-eik,https://github.com/apache/karaf-eik.git,6,66200,2.0
 284,geronimo-batchee,https://github.com/apache/geronimo-batchee.git,2,66300,2.0
 760,rampart,https://github.com/apache/rampart.git,2,66600,2.0

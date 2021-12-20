@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 pd.options.mode.chained_assignment = None  # default='warn'
 
-reject_outliers=True # are we using outliers in this?
+reject_outliers=True # are we not using outliers in this?
 
 # loading the spreadsheet containing all project sizes
 df_allRepos = pd.read_excel('../ApacheReposInfo2.xlsx')
@@ -45,7 +45,7 @@ if(reject_outliers):
     df_allRepos = df_allRepos[df_mask]
 
 #classifying all rows into sizes
-kmeans=KMeans(n_clusters=4)
+kmeans=KMeans(n_clusters=3)
 df_allRepos["Size_Classification"]= kmeans.fit_predict(df_allRepos[['LOC']])
 
 #saving all repos with their new size classifications
