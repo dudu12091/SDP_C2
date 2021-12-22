@@ -165,7 +165,7 @@ plt.scatter(x2, y2, label="non-TDD repository")
 plt.legend()
 plt.xlabel("number of stars")
 plt.ylabel("TDD probability")
-plt.title("the relationship between stars and TDD probability in small projects")
+plt.title("the relationship between stars and TDD probability in large projects")
 plt.show()
 
 ###########################################################################################
