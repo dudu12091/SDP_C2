@@ -38,7 +38,7 @@ the likelihood for large project to be TDD is 0.2
 
  Draw a scatter diagram to show the relationship between stars and TDD probability.
 
-![](Python/img/img1.png)
+![](Python/img/img2.png)
 
 4. Inspect popularity for TDD vs non-TDD projects for each sized project.
 
