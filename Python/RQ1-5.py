@@ -223,6 +223,7 @@ for i in range(len(df)):
 x = range(len(x1))
 plt.bar(x, y1)
 plt.xticks(x, x1)
+plt.xticks(rotation=90)
 plt.title("the persentage of bug-fixing commit in TDD repository")
 plt.xlabel("name of repository")
 plt.ylabel("persentage of bug-fixing commit")
