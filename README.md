@@ -32,7 +32,7 @@ the likelihood for medium project to be TDD is 0.2
 
 the likelihood for large project to be TDD is 0.2
 
-![Python/img/img1.png]
+![](Python/img/img1.png)
 
 3. Inspect popularity for TDD vs non-TDD projects over all repos
 
