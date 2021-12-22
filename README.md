@@ -37,26 +37,34 @@ the likelihood for large project to be TDD is 0.2
 3. Inspect popularity for TDD vs non-TDD projects over all repos
 
  Draw a scatter diagram to show the relationship between stars and TDD probability.
- ```python
- plt.scatter(x1, y1, label="TDD repository")
- plt.scatter(x2, y2, label="non-TDD repository")
- plt.legend()
- plt.xlabel("number of stars")
- plt.ylabel("TDD probability")
- plt.title("the relationship between stars and TDD probability")
- plt.show()
 
- ```
+![](Python/img/img1.png)
 
 4. Inspect popularity for TDD vs non-TDD projects for each sized project.
 
  Similar to RQ3, and we will draw scatter diagram for each size of projects.
+ 
+ ![](Python/img/img3.png)
+ 
+ ![](Python/img/img4.png)
+ 
+ ![](Python/img/img5.png)
 
 5. How TDD impacts the commit size and the number of bug-fixing commits?
  
  - How TDD impacts the commit size
  Use a for loop to calculate the average modified lines in each commit (`Modified Lines / Commits Numbers`). And then, draw two histograms for TDD and non-TDD repositories separately.
+ 
+ ![](Python/img/img6.png)
+ 
+ ![](Python/img/img7.png)
+ 
+ 
  - How TDD impacts the number of bug-fixing commits
  Use a for loop to calculate the persentage of bug-fixing commits in a repository (`Bug Fixing Commits Number / Commits Numbers`). And then, draw two histograms for TDD and non-TDD repositories separately.
+ 
+ ![](Python/img/img8.png)
+ 
+ ![](Python/img/img9.png)
 
 
