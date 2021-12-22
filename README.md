@@ -17,7 +17,9 @@ For example, if the `benchmark = 0.7`, that means we allow 30% of the source cod
 1. Inspect likelihood for a project to be TDD over all projects?
 
  use a for loop to check which repositories are TDD. And then calculate the likelihood.
+ 
  After calculation, the number of TDD repositories is 5 and they are  ['curator' 'incubator-heron' 'zeppelin' 'incubator-doris' 'nifi']
+ 
  the likelihood for a project to be TDD over all repositories is 0.16666666666666666
 
 2. Inspect likelihood for each size of project to be TDD?
@@ -25,10 +27,12 @@ For example, if the `benchmark = 0.7`, that means we allow 30% of the source cod
  Use a for loop to calculate the number of TDD repositories for each size of project and calculate the likelihood. And then, draw a histogram for the likelihood. The xlabel is project size and the ylabel is likelihood.
 
 the likelihood for small project to be TDD is 0.1
+
 the likelihood for medium project to be TDD is 0.2
+
 the likelihood for large project to be TDD is 0.2
 
-
+![Python/img/img1.png]
 
 3. Inspect popularity for TDD vs non-TDD projects over all repos
 
