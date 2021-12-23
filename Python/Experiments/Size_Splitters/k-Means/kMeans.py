@@ -9,6 +9,10 @@ from sklearn.cluster import KMeans
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import random
+
+random.seed(42) #setting random seed for repeatability
+
 pd.options.mode.chained_assignment = None  # default='warn'
 
 reject_outliers=True # are we not using outliers in this?
