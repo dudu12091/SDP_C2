@@ -118,7 +118,7 @@ plt.xticks(x_pos,size_classes)
 
 
 #getting best/worst rated for each size
-df_bestRepos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification","Best_or_worst"])
+df_bestRepos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification"])#,"Best_or_worst"])
 
 n_best = 10
 #n_worst = 10 
@@ -129,9 +129,44 @@ for group_name, df_sizeGroup in gb_allRepos:
     #df_nWorst = df_sizeGroup.head(n_worst)
     #df_nWorst["Best_or_worst"]="worst"
     df_nBest = df_sizeGroup.tail(n_best)
-    df_nBest["Best_or_worst"]="best"
+    #df_nBest["Best_or_worst"]="best"
     
     #df_bestRepos=df_bestRepos.append(df_nWorst)
     df_bestRepos=df_bestRepos.append(df_nBest)
 
 df_bestRepos.to_csv("./kMeansSplit_Best.csv", index=False, header=True)
+
+
+
+
+
+
+# removing the most popular repos from all_repos as we don't want duplicates in our control set
+df_allButMostPopularRepos = pd.concat([df_allRepos, df_bestRepos, df_bestRepos]).drop_duplicates(keep=False)
+
+# picking 10 random repos from each size classification
+n_random = 10
+
+df_random_repos = pd.DataFrame(columns=["Name","Repository","Stars","LOC","Size_Classification"])
+gb_allRepos = df_allButMostPopularRepos.groupby("Size_Classification")
+for group_name, df_sizeGroup in gb_allRepos:
+    df_random_subset=df_sizeGroup.sample(n_random)
+    df_random_repos=df_random_repos.append(df_random_subset)
+
+df_random_repos.to_csv("./kMeansSplit_Control.csv", index=False, header=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
