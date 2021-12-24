@@ -72,12 +72,14 @@ ADD_TEST_FILES = 6
 
 repository_info = []
 
-urls = pd.read_csv("k-Means/KMeansSplit_Best.csv")['Repository']
-size_classes = pd.read_csv("k-Means/KMeansSplit_Best.csv")['Size_Classification']
-stars = pd.read_csv("k-Means/KMeansSplit_Best.csv")['Stars']
-locs = pd.read_csv("k-Means/KMeansSplit_Best.csv")['LOC']
+urls = pd.read_csv("k-Means/KMeansSplit_Control.csv")['Repository']
+size_classes = pd.read_csv("k-Means/KMeansSplit_Control.csv")['Size_Classification']
+stars = pd.read_csv("k-Means/KMeansSplit_Control.csv")['Stars']
+locs = pd.read_csv("k-Means/KMeansSplit_Control.csv")['LOC']
 
-for i in range(len(urls)):
+urls = pd.read_csv("k-Means/kMeansSplit_Control.csv")["Repository"]
+
+for i in range(28,29):
     print("Mining from:", urls[i])
     repository_name = urls[i][urls[i].rfind('/') + 1: -4]
     download_path = os.path.join('localRepos', repository_name)
@@ -146,5 +148,5 @@ for i in range(len(urls)):
                             p, before, same_time, after])
 
 df = pd.DataFrame(repository_info, columns=repos_columns)
-df.to_csv('Repository_info.csv')
+df.to_csv('Repository_info_2.csv')
 
